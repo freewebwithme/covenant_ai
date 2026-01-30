@@ -1,5 +1,5 @@
-defmodule CovenantAiWeb.PageController do
-  use CovenantAiWeb, :controller
+defmodule CovenantAIWeb.PageController do
+  use CovenantAIWeb, :controller
 
   def home(conn, _params) do
     render(conn, :home)

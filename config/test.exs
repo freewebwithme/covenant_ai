@@ -5,7 +5,7 @@ import Config
 # The MIX_TEST_PARTITION environment variable can be used
 # to provide built-in test partitioning in CI environment.
 # Run `mix help test` for more information.
-config :covenant_ai, CovenantAi.Repo,
+config :covenant_ai, CovenantAI.Repo,
   username: "postgres",
   password: "postgres",
   hostname: "localhost",
@@ -15,13 +15,13 @@ config :covenant_ai, CovenantAi.Repo,
 
 # We don't run a server during test. If one is required,
 # you can enable the server option below.
-config :covenant_ai, CovenantAiWeb.Endpoint,
+config :covenant_ai, CovenantAIWeb.Endpoint,
   http: [ip: {127, 0, 0, 1}, port: 4002],
   secret_key_base: "0zl3pWDr9GFiHY1sz6uMbA0rF4kZClJAWJoUjm41lBrRas8zpcqBEwYL7AQAUp4C",
   server: false
 
 # In test we don't send emails
-config :covenant_ai, CovenantAi.Mailer, adapter: Swoosh.Adapters.Test
+config :covenant_ai, CovenantAI.Mailer, adapter: Swoosh.Adapters.Test
 
 # Disable swoosh api client as it is only required for production adapters
 config :swoosh, :api_client, false

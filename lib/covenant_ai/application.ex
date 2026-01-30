@@ -1,4 +1,4 @@
-defmodule CovenantAi.Application do
+defmodule CovenantAI.Application do
   # See https://hexdocs.pm/elixir/Application.html
   # for more information on OTP Applications
   @moduledoc false
@@ -8,19 +8,20 @@ defmodule CovenantAi.Application do
   @impl true
   def start(_type, _args) do
     children = [
-      CovenantAiWeb.Telemetry,
-      CovenantAi.Repo,
+      CovenantAIWeb.Telemetry,
+      CovenantAI.Repo,
       {DNSCluster, query: Application.get_env(:covenant_ai, :dns_cluster_query) || :ignore},
-      {Phoenix.PubSub, name: CovenantAi.PubSub},
-      # Start a worker by calling: CovenantAi.Worker.start_link(arg)
-      # {CovenantAi.Worker, arg},
+      {Phoenix.PubSub, name: CovenantAI.PubSub},
+      {AshAuthentication.Supervisor, otp_app: :covenant_ai},
+      # Start a worker by calling: CovenantAI.Worker.start_link(arg)
+      # {CovenantAI.Worker, arg},
       # Start to serve requests, typically the last entry
-      CovenantAiWeb.Endpoint
+      CovenantAIWeb.Endpoint
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
     # for other strategies and supported options
-    opts = [strategy: :one_for_one, name: CovenantAi.Supervisor]
+    opts = [strategy: :one_for_one, name: CovenantAI.Supervisor]
     Supervisor.start_link(children, opts)
   end
 
@@ -28,7 +29,7 @@ defmodule CovenantAi.Application do
   # whenever the application is updated.
   @impl true
   def config_change(changed, _new, removed) do
-    CovenantAiWeb.Endpoint.config_change(changed, removed)
+    CovenantAIWeb.Endpoint.config_change(changed, removed)
     :ok
   end
 end

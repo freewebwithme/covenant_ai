@@ -1,12 +1,12 @@
-defmodule CovenantAiWeb do
+defmodule CovenantAIWeb do
   @moduledoc """
   The entrypoint for defining your web interface, such
   as controllers, components, channels, and so on.
 
   This can be used in your application as:
 
-      use CovenantAiWeb, :controller
-      use CovenantAiWeb, :html
+      use CovenantAIWeb, :controller
+      use CovenantAIWeb, :html
 
   The definitions below will be executed for every controller,
   component, etc, so keep them short and clean, focused
@@ -40,7 +40,7 @@ defmodule CovenantAiWeb do
     quote do
       use Phoenix.Controller, formats: [:html, :json]
 
-      use Gettext, backend: CovenantAiWeb.Gettext
+      use Gettext, backend: CovenantAIWeb.Gettext
 
       import Plug.Conn
 
@@ -80,16 +80,16 @@ defmodule CovenantAiWeb do
   defp html_helpers do
     quote do
       # Translation
-      use Gettext, backend: CovenantAiWeb.Gettext
+      use Gettext, backend: CovenantAIWeb.Gettext
 
       # HTML escaping functionality
       import Phoenix.HTML
       # Core UI components
-      import CovenantAiWeb.CoreComponents
+      import CovenantAIWeb.CoreComponents
 
       # Common modules used in templates
       alias Phoenix.LiveView.JS
-      alias CovenantAiWeb.Layouts
+      alias CovenantAIWeb.Layouts
 
       # Routes generation with the ~p sigil
       unquote(verified_routes())
@@ -99,9 +99,9 @@ defmodule CovenantAiWeb do
   def verified_routes do
     quote do
       use Phoenix.VerifiedRoutes,
-        endpoint: CovenantAiWeb.Endpoint,
-        router: CovenantAiWeb.Router,
-        statics: CovenantAiWeb.static_paths()
+        endpoint: CovenantAIWeb.Endpoint,
+        router: CovenantAIWeb.Router,
+        statics: CovenantAIWeb.static_paths()
     end
   end
 

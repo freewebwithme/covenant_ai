@@ -1,4 +1,4 @@
-# CovenantAi
+# CovenantAI
 
 To start your Phoenix server:
 

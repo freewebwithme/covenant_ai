@@ -1,4 +1,4 @@
-defmodule CovenantAiWeb.Telemetry do
+defmodule CovenantAIWeb.Telemetry do
   use Supervisor
   import Telemetry.Metrics
 
@@ -87,7 +87,7 @@ defmodule CovenantAiWeb.Telemetry do
     [
       # A module, function and arguments to be invoked periodically.
       # This function must call :telemetry.execute/3 and a metric must be added above.
-      # {CovenantAiWeb, :count_users, []}
+      # {CovenantAIWeb, :count_users, []}
     ]
   end
 end

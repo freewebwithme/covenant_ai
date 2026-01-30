@@ -1,4 +1,13 @@
 import Config
+import Dotenvy
+
+env_dir_prefix = System.get_env("RELEASE_ROOT") || Path.expand("./envs")
+
+source!([
+  Path.absname(".env", env_dir_prefix),
+  Path.absname(".#{config_env()}.env", env_dir_prefix),
+  System.get_env()
+])
 
 # config/runtime.exs is executed for all environments, including
 # during releases. It is executed after compilation and before the
@@ -17,11 +26,13 @@ import Config
 # Alternatively, you can use `mix phx.gen.release` to generate a `bin/server`
 # script that automatically sets the env var above.
 if System.get_env("PHX_SERVER") do
-  config :covenant_ai, CovenantAiWeb.Endpoint, server: true
+  config :covenant_ai, CovenantAIWeb.Endpoint, server: true
 end
 
-config :covenant_ai, CovenantAiWeb.Endpoint,
+config :covenant_ai, CovenantAIWeb.Endpoint,
   http: [port: String.to_integer(System.get_env("PORT", "4000"))]
+
+config :covenant_ai, :token_signing_secret, env!("TOKEN_SIGNING_SECRET", :string!)
 
 if config_env() == :prod do
   database_url =
@@ -33,7 +44,7 @@ if config_env() == :prod do
 
   maybe_ipv6 = if System.get_env("ECTO_IPV6") in ~w(true 1), do: [:inet6], else: []
 
-  config :covenant_ai, CovenantAi.Repo,
+  config :covenant_ai, CovenantAI.Repo,
     # ssl: true,
     url: database_url,
     pool_size: String.to_integer(System.get_env("POOL_SIZE") || "10"),
@@ -57,7 +68,7 @@ if config_env() == :prod do
 
   config :covenant_ai, :dns_cluster_query, System.get_env("DNS_CLUSTER_QUERY")
 
-  config :covenant_ai, CovenantAiWeb.Endpoint,
+  config :covenant_ai, CovenantAIWeb.Endpoint,
     url: [host: host, port: 443, scheme: "https"],
     http: [
       # Enable IPv6 and bind on all interfaces.
@@ -73,7 +84,7 @@ if config_env() == :prod do
   # To get SSL working, you will need to add the `https` key
   # to your endpoint configuration:
   #
-  #     config :covenant_ai, CovenantAiWeb.Endpoint,
+  #     config :covenant_ai, CovenantAIWeb.Endpoint,
   #       https: [
   #         ...,
   #         port: 443,
@@ -95,7 +106,7 @@ if config_env() == :prod do
   # We also recommend setting `force_ssl` in your config/prod.exs,
   # ensuring no data is ever sent via http, always redirecting to https:
   #
-  #     config :covenant_ai, CovenantAiWeb.Endpoint,
+  #     config :covenant_ai, CovenantAIWeb.Endpoint,
   #       force_ssl: [hsts: true]
   #
   # Check `Plug.SSL` for all available options in `force_ssl`.
@@ -105,7 +116,7 @@ if config_env() == :prod do
   # In production you need to configure the mailer to use a different adapter.
   # Here is an example configuration for Mailgun:
   #
-  #     config :covenant_ai, CovenantAi.Mailer,
+  #     config :covenant_ai, CovenantAI.Mailer,
   #       adapter: Swoosh.Adapters.Mailgun,
   #       api_key: System.get_env("MAILGUN_API_KEY"),
   #       domain: System.get_env("MAILGUN_DOMAIN")

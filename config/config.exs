@@ -7,19 +7,67 @@
 # General application configuration
 import Config
 
+config :ash,
+  allow_forbidden_field_for_relationships_by_default?: true,
+  include_embedded_source_by_default?: false,
+  show_keysets_for_all_actions?: false,
+  default_page_type: :keyset,
+  policies: [no_filter_static_forbidden_reads?: false],
+  keep_read_action_loads_when_loading?: false,
+  default_actions_require_atomic?: true,
+  read_action_after_action_hooks_in_order?: true,
+  bulk_actions_default_to_errors?: true
+
+config :spark,
+  formatter: [
+    remove_parens?: true,
+    "Ash.Resource": [
+      section_order: [
+        :admin,
+        :multitenancy,
+        :postgres,
+        :identities,
+        :attributes,
+        :relationships,
+        :cloak,
+        :calculations,
+        :aggregates,
+        :authentication,
+        :tokens,
+        :resource,
+        :code_interface,
+        :actions,
+        :forms,
+        :changes,
+        :validations,
+        :policies,
+        :pub_sub,
+        :preparations,
+        :paper_trail
+      ]
+    ],
+    "Ash.Domain": [
+      section_order: [:admin, :resources, :policies, :authorization, :domain, :execution]
+    ]
+  ]
+
 config :covenant_ai,
-  ecto_repos: [CovenantAi.Repo],
-  generators: [timestamp_type: :utc_datetime]
+  ecto_repos: [CovenantAI.Repo],
+  generators: [timestamp_type: :utc_datetime],
+  ash_domains: [
+    CovenantAI.Accounts,
+    CovenantAI.Communities
+  ]
 
 # Configure the endpoint
-config :covenant_ai, CovenantAiWeb.Endpoint,
+config :covenant_ai, CovenantAIWeb.Endpoint,
   url: [host: "localhost"],
   adapter: Bandit.PhoenixAdapter,
   render_errors: [
-    formats: [html: CovenantAiWeb.ErrorHTML, json: CovenantAiWeb.ErrorJSON],
+    formats: [html: CovenantAIWeb.ErrorHTML, json: CovenantAIWeb.ErrorJSON],
     layout: false
   ],
-  pubsub_server: CovenantAi.PubSub,
+  pubsub_server: CovenantAI.PubSub,
   live_view: [signing_salt: "c9+sAVK6"]
 
 # Configure the mailer
@@ -29,7 +77,7 @@ config :covenant_ai, CovenantAiWeb.Endpoint,
 #
 # For production it's recommended to configure a different adapter
 # at the `config/runtime.exs`.
-config :covenant_ai, CovenantAi.Mailer, adapter: Swoosh.Adapters.Local
+config :covenant_ai, CovenantAI.Mailer, adapter: Swoosh.Adapters.Local
 
 # Configure esbuild (the version is required)
 config :esbuild,
