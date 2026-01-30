@@ -1,4 +1,4 @@
-defmodule CovenantAiWeb.Endpoint do
+defmodule CovenantAIWeb.Endpoint do
   use Phoenix.Endpoint, otp_app: :covenant_ai
 
   # The session will be stored in the cookie and signed,
@@ -24,8 +24,12 @@ defmodule CovenantAiWeb.Endpoint do
     at: "/",
     from: :covenant_ai,
     gzip: not code_reloading?,
-    only: CovenantAiWeb.static_paths(),
+    only: CovenantAIWeb.static_paths(),
     raise_on_missing_only: code_reloading?
+
+  if Code.ensure_loaded?(Tidewave) do
+    plug Tidewave
+  end
 
   # Code reloading can be explicitly enabled under the
   # :code_reloader configuration of your endpoint.
@@ -51,5 +55,5 @@ defmodule CovenantAiWeb.Endpoint do
   plug Plug.MethodOverride
   plug Plug.Head
   plug Plug.Session, @session_options
-  plug CovenantAiWeb.Router
+  plug CovenantAIWeb.Router
 end

@@ -1,4 +1,4 @@
-defmodule CovenantAiWeb.CoreComponents do
+defmodule CovenantAIWeb.CoreComponents do
   @moduledoc """
   Provides core UI components.
 
@@ -27,7 +27,7 @@ defmodule CovenantAiWeb.CoreComponents do
 
   """
   use Phoenix.Component
-  use Gettext, backend: CovenantAiWeb.Gettext
+  use Gettext, backend: CovenantAIWeb.Gettext
 
   alias Phoenix.LiveView.JS
 
@@ -483,9 +483,9 @@ defmodule CovenantAiWeb.CoreComponents do
     # with our gettext backend as first argument. Translations are
     # available in the errors.po file (as we use the "errors" domain).
     if count = opts[:count] do
-      Gettext.dngettext(CovenantAiWeb.Gettext, "errors", msg, msg, count, opts)
+      Gettext.dngettext(CovenantAIWeb.Gettext, "errors", msg, msg, count, opts)
     else
-      Gettext.dgettext(CovenantAiWeb.Gettext, "errors", msg, opts)
+      Gettext.dgettext(CovenantAIWeb.Gettext, "errors", msg, opts)
     end
   end
 

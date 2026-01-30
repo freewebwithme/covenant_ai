@@ -1,11 +1,11 @@
-defmodule CovenantAiWeb.Router do
-  use CovenantAiWeb, :router
+defmodule CovenantAIWeb.Router do
+  use CovenantAIWeb, :router
 
   pipeline :browser do
     plug :accepts, ["html"]
     plug :fetch_session
     plug :fetch_live_flash
-    plug :put_root_layout, html: {CovenantAiWeb.Layouts, :root}
+    plug :put_root_layout, html: {CovenantAIWeb.Layouts, :root}
     plug :protect_from_forgery
     plug :put_secure_browser_headers
   end
@@ -14,14 +14,14 @@ defmodule CovenantAiWeb.Router do
     plug :accepts, ["json"]
   end
 
-  scope "/", CovenantAiWeb do
+  scope "/", CovenantAIWeb do
     pipe_through :browser
 
     get "/", PageController, :home
   end
 
   # Other scopes may use custom stacks.
-  # scope "/api", CovenantAiWeb do
+  # scope "/api", CovenantAIWeb do
   #   pipe_through :api
   # end
 
@@ -37,7 +37,7 @@ defmodule CovenantAiWeb.Router do
     scope "/dev" do
       pipe_through :browser
 
-      live_dashboard "/dashboard", metrics: CovenantAiWeb.Telemetry
+      live_dashboard "/dashboard", metrics: CovenantAIWeb.Telemetry
       forward "/mailbox", Plug.Swoosh.MailboxPreview
     end
   end

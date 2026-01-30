@@ -1,4 +1,4 @@
-defmodule CovenantAi.MixProject do
+defmodule CovenantAI.MixProject do
   use Mix.Project
 
   def project do
@@ -20,7 +20,7 @@ defmodule CovenantAi.MixProject do
   # Type `mix help compile.app` for more information.
   def application do
     [
-      mod: {CovenantAi.Application, []},
+      mod: {CovenantAI.Application, []},
       extra_applications: [:logger, :runtime_tools]
     ]
   end
@@ -41,8 +41,15 @@ defmodule CovenantAi.MixProject do
   defp deps do
     [
       {:ash, "~> 3.13"},
+      {:ash_admin, "~> 0.13"},
+      {:ash_authentication, "~> 4.0"},
+      {:ash_authentication_phoenix, "~> 2.0"},
+      {:ash_phoenix, "~> 2.0"},
+      {:ash_postgres, "~> 2.0"},
       {:bandit, "~> 1.5"},
+      {:bcrypt_elixir, "~> 3.0"},
       {:dns_cluster, "~> 0.2.0"},
+      {:dotenvy, "~> 1.0.0"},
       {:ecto_sql, "~> 3.13"},
       {:esbuild, "~> 0.10", runtime: Mix.env() == :dev},
       {:gettext, "~> 1.0"},
@@ -62,9 +69,12 @@ defmodule CovenantAi.MixProject do
       {:phoenix_live_dashboard, "~> 0.8.3"},
       {:phoenix, "~> 1.8.3"},
       {:phoenix_ecto, "~> 4.5"},
+      {:picosat_elixir, "~> 0.2"},
       {:req, "~> 0.5"},
+      {:sourceror, "~> 1.8", only: [:dev, :test]},
       {:swoosh, "~> 1.16"},
       {:tailwind, "~> 0.3", runtime: Mix.env() == :dev},
+      {:tidewave, "~> 0.5", only: :dev},
       {:telemetry_metrics, "~> 1.0"},
       {:telemetry_poller, "~> 1.0"}
     ]

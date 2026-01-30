@@ -1,2 +1,2 @@
 ExUnit.start()
-Ecto.Adapters.SQL.Sandbox.mode(CovenantAi.Repo, :manual)
+Ecto.Adapters.SQL.Sandbox.mode(CovenantAI.Repo, :manual)

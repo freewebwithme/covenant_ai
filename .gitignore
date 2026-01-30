@@ -35,3 +35,4 @@ covenant_ai-*.tar
 npm-debug.log
 /assets/node_modules/
 
+/envs/

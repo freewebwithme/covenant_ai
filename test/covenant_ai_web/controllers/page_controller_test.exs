@@ -1,5 +1,5 @@
-defmodule CovenantAiWeb.PageControllerTest do
-  use CovenantAiWeb.ConnCase
+defmodule CovenantAIWeb.PageControllerTest do
+  use CovenantAIWeb.ConnCase
 
   test "GET /", %{conn: conn} do
     conn = get(conn, ~p"/")
