@@ -1,5 +1,8 @@
 defmodule CovenantAIWeb.Router do
   use CovenantAIWeb, :router
+  use AshAuthentication.Phoenix.Router
+
+  import AshAuthentication.Plug.Helpers
 
   pipeline :browser do
     plug :accepts, ["html"]
@@ -8,16 +11,46 @@ defmodule CovenantAIWeb.Router do
     plug :put_root_layout, html: {CovenantAIWeb.Layouts, :root}
     plug :protect_from_forgery
     plug :put_secure_browser_headers
+    plug :load_from_session
   end
 
   pipeline :api do
     plug :accepts, ["json"]
+
+    plug :load_from_bearer
+    plug :set_actor, :user
   end
 
   scope "/", CovenantAIWeb do
     pipe_through :browser
 
-    get "/", PageController, :home
+    ash_authentication_live_session :authentication_required,
+      on_mount: {CovenantAIWeb.LiveUserAuth, :live_user_required} do
+      # live "/dashboard", DashboardHomeLive.Index, :index
+    end
+
+    ash_authentication_live_session :authentication_optional,
+      on_mount: [
+        {CovenantAIWeb.LiveUserAuth, :live_user_optional}
+        # {CovenantAIWeb.CurrentPath, :save_current_path},
+        # {CovenantAIWeb.PrepareUser, :prepare_user}
+      ] do
+      live "/", LandingPageLive
+    end
+
+    # Standard controller-backed routes
+    auth_routes AuthController, CovenantAI.Accounts.User, path: "/auth"
+    sign_out_route AuthController
+
+    # Prebuilt LiveViews for signing in, registration, resetting, etc.
+    # Leave out `register_path` and `reset_path` if you don't want to support
+    # user registration and/or password resets respectively.
+    sign_in_route register_path: "/register",
+                  reset_path: "/reset",
+                  auth_routes_prefix: "/auth",
+                  overrides: [AshAuthentication.Phoenix.Overrides.DaisyUI]
+
+    reset_route auth_routes_prefix: "/auth"
   end
 
   # Other scopes may use custom stacks.

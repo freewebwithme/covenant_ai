@@ -20,8 +20,6 @@ defmodule CovenantAI.TenantResource do
       multitenancy do
         strategy :attribute
         attribute :community_id
-        # super admin이 tenant 없이도 접근 가능
-        global? true
       end
     end
   end
