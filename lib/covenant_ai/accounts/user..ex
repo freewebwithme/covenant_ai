@@ -49,6 +49,7 @@ defmodule CovenantAI.Accounts.User do
       password :password do
         identity_field :email
         hashed_password_field :hashed_password
+        # registration_enabled? false
 
         sign_in_tokens_enabled? true
       end
@@ -63,12 +64,6 @@ defmodule CovenantAI.Accounts.User do
       argument :subject, :string, allow_nil?: false
       get? true
       prepare AshAuthentication.Preparations.FilterBySubject
-    end
-  end
-
-  validations do
-    validate attribute_in(:role, [:board_admin, :super_admin]) do
-      on [:create]
     end
   end
 
