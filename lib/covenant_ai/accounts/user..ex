@@ -49,7 +49,7 @@ defmodule CovenantAI.Accounts.User do
       password :password do
         identity_field :email
         hashed_password_field :hashed_password
-        # registration_enabled? false
+        registration_enabled? false
 
         sign_in_tokens_enabled? true
       end
