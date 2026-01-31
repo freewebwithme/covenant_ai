@@ -7,6 +7,8 @@ defmodule CovenantAI.Communities.Document do
     domain: CovenantAI.Communities,
     data_layer: AshPostgres.DataLayer
 
+  use CovenantAI.TenantResource
+
   postgres do
     table "community_documents"
     repo CovenantAI.Repo
