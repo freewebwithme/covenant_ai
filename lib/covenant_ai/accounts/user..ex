@@ -6,11 +6,6 @@ defmodule CovenantAI.Accounts.User do
     extensions: [AshAuthentication],
     otp_app: :covenant_ai
 
-  # multitenancy do
-  #   strategy :attribute
-  #   attribute :org_id
-  # end
-
   defmodule Role do
     use Ash.Type.Enum,
       values: [:resident, :board_member, :board_admin, :super_admin]
