@@ -6,7 +6,6 @@ defmodule CovenantAI.Communities.Address do
   entities (Community, Unit, Resident profile, etc).
   """
   use Ash.Resource,
-    authorizers: [Ash.Policy.Authorizer],
     data_layer: :embedded,
     domain: CovenantAI.Communities,
     otp_app: :covenant_ai
@@ -54,6 +53,34 @@ defmodule CovenantAI.Communities.Address do
           "#{record.city}, #{record.state}"
         end)
       end
+    end
+  end
+
+  actions do
+    defaults [:read]
+
+    create :create do
+      primary? true
+
+      accept [
+        :street_address,
+        :street_address_2,
+        :city,
+        :state,
+        :zip_code,
+        :country
+      ]
+    end
+
+    update :update do
+      accept [
+        :street_address,
+        :street_address_2,
+        :city,
+        :state,
+        :zip_code,
+        :country
+      ]
     end
   end
 
