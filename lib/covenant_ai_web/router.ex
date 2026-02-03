@@ -36,6 +36,7 @@ defmodule CovenantAIWeb.Router do
         # {CovenantAIWeb.PrepareUser, :prepare_user}
       ] do
       live "/", LandingPageLive
+      live "/request-access", AccessRequest.AccessRequestLive
     end
 
     # Standard controller-backed routes

@@ -6,6 +6,7 @@ defmodule CovenantAI.Accounts do
   end
 
   resources do
+    resource __MODULE__.AccessRequest
     resource __MODULE__.User
     resource __MODULE__.Token
   end
