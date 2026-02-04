@@ -52,6 +52,7 @@ defmodule CovenantAI.MixProject do
       {:dotenvy, "~> 1.0.0"},
       {:ecto_sql, "~> 3.13"},
       {:esbuild, "~> 0.10", runtime: Mix.env() == :dev},
+      {:faker, "~> 0.18.0"},
       {:gettext, "~> 1.0"},
       {:heroicons,
        github: "tailwindlabs/heroicons",

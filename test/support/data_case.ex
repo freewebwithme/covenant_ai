@@ -20,6 +20,8 @@ defmodule CovenantAI.DataCase do
     quote do
       alias CovenantAI.Repo
 
+      require Ash.Query
+
       import Ecto
       import Ecto.Changeset
       import Ecto.Query
