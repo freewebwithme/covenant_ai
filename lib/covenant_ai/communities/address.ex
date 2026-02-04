@@ -73,6 +73,8 @@ defmodule CovenantAI.Communities.Address do
     end
 
     update :update do
+      primary? true
+
       accept [
         :street_address,
         :street_address_2,

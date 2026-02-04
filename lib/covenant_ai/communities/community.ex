@@ -51,21 +51,48 @@ defmodule CovenantAI.Communities.Community do
   end
 
   actions do
-    defaults [:create, :read, :update]
+    defaults [:read]
+
+    create :create do
+      primary? true
+
+      accept [
+        :name,
+        :address,
+        :contact_email,
+        :contact_phone,
+        :status
+      ]
+    end
+
+    update :update do
+      primary? true
+
+      accept [
+        :name,
+        :address,
+        :contact_email,
+        :contact_phone,
+        :status
+      ]
+    end
+
+    update :update_contact do
+      accept [:contact_email, :contact_phone]
+    end
   end
 
   policies do
+    bypass action(:update_contact) do
+      authorize_if actor_attribute_equals(:role, :board_admin)
+    end
+
     policy action_type([:create, :update]) do
-      authorize_if CovenantAI.Accounts.Checks.IsAdmin
+      authorize_if actor_attribute_equals(:role, :super_admin)
     end
 
     policy action_type([:read]) do
-      authorize_if actor_attribute_equals(:role, :resident)
-      authorize_if CovenantAI.Accounts.Checks.IsAdmin
-    end
-
-    policy action_type(:destroy) do
-      authorize_if actor_attribute_equals(:role, :super_admin)
+      authorize_if actor_present()
     end
   end
 end
